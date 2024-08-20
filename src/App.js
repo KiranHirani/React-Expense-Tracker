@@ -4,9 +4,9 @@ import Header from "./components/Header";
 import Income from "./components/Income";
 import UpdateCategories from "./components/UpdateCategories";
 import Total from "./components/Total";
-import Expenses from "./components/Expenses";
 import Error from "./components/Error";
 import { ResponseProvider } from "./context/ResponseContext";
+import Home from "./components/Home";
 
 const AppLayout = () => {
   return (
@@ -25,7 +25,7 @@ const appRoutes = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Expenses />,
+        element: <Home />,
       },
       {
         path: "/income",

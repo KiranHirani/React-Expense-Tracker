@@ -1,7 +1,14 @@
-const ExpenseList = ({ expenses, editExpense, deleteExpense, option }) => {
+const ListSection = ({
+  expenses,
+  editExpense,
+  deleteExpense,
+  option,
+  title,
+}) => {
   return (
     <div>
-      <table className="table table-condensed">
+      <h3 className="table-heading">{title}</h3>
+      <table className="table table-condensed table-hover">
         <thead>
           <tr>
             <th>Date</th>
@@ -12,7 +19,7 @@ const ExpenseList = ({ expenses, editExpense, deleteExpense, option }) => {
           </tr>
         </thead>
         <tbody>
-          {expenses.map((expense) => {
+          {expenses?.map((expense) => {
             return (
               <tr key={expense.id}>
                 <td>{expense.date}</td>
@@ -39,4 +46,4 @@ const ExpenseList = ({ expenses, editExpense, deleteExpense, option }) => {
   );
 };
 
-export default ExpenseList;
+export default ListSection;

@@ -1,26 +1,24 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ExpenseForm from "./ExpenseForm";
-import { INCOME, EXPENSE } from "../shared/constants";
+import {
+  INCOME,
+  EXPENSE,
+  expenseCategories,
+  incomeCategories,
+} from "../shared/constants";
 
 const Popup = ({ onClose, editFormData }) => {
   const [option, setOption] = useState("");
-  let editType = useRef("");
-  let popupDropdown = useRef("none");
-  const setDropdownValue = (event) => {
-    let value = event.target.value;
-    setOption(value);
-  };
 
   useEffect(() => {
     if (editFormData) {
-      editType.current = editFormData.type;
-      popupDropdown.current.value = editFormData.type;
       setOption(editFormData.type);
     }
   }, [editFormData]);
 
-  let expenseCategories = ["Food", "Leisure"],
-    incomeCategories = ["Salary", "Bonus"];
+  const handleDropdownChange = (event) => {
+    setOption(event.target.value);
+  };
 
   const categories = option === EXPENSE ? expenseCategories : incomeCategories;
 
@@ -36,22 +34,22 @@ const Popup = ({ onClose, editFormData }) => {
         <div className="popup-options">
           <select
             className="form-control"
-            ref={popupDropdown}
-            onChange={(event) => setDropdownValue(event)}
+            value={option}
+            onChange={handleDropdownChange}
           >
-            <option value="none">Choose one</option>
+            <option value="">Choose one</option>
             <option value={EXPENSE}>Expense</option>
             <option value={INCOME}>Income</option>
           </select>
         </div>
         <div className="mt-5">
-          {option === INCOME || option === EXPENSE ? (
+          {(option === INCOME || option === EXPENSE) && (
             <ExpenseForm
               categories={categories}
               value={option}
               editFormData={editFormData}
             />
-          ) : null}
+          )}
         </div>
       </div>
     </div>

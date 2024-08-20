@@ -3,9 +3,7 @@ import Popup from "./Popup";
 
 const Header = () => {
   const [showPopup, setShowPopup] = useState(false);
-  const onClose = () => {
-    setShowPopup(false);
-  };
+  const handlePopupToggle = () => setShowPopup((prev) => !prev);
 
   return (
     <div className="header">
@@ -17,12 +15,12 @@ const Header = () => {
           <h1>
             <i
               className="fa-solid fa-plus me-4 float-end text-white"
-              onClick={() => setShowPopup(true)}
+              onClick={handlePopupToggle}
             ></i>
           </h1>
         </div>
       </div>
-      <div>{showPopup && <Popup onClose={onClose} />}</div>
+      <div>{showPopup && <Popup onClose={handlePopupToggle} />}</div>
     </div>
   );
 };

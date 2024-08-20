@@ -7,3 +7,25 @@ export const INCOME_URL =
 
 export const INCOME = "income";
 export const EXPENSE = "expenses";
+
+export const expenseCategories = [
+  "Rent/Mortgage",
+  "Utilities",
+  "Groceries",
+  "Transportation",
+  "Insurance",
+  "Medical Expenses",
+  "Internet",
+  "Education",
+  "Cell Phone",
+  "Others",
+];
+
+export const incomeCategories = [
+  "Salary",
+  "Bonuses",
+  "Freelance Income",
+  "Investments",
+  "Rental Income",
+  "Other",
+];

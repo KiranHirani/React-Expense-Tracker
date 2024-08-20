@@ -22,6 +22,7 @@ body {
   background-attachment: fixed;
   position: relative;
   background-position: center center;
+  scroll-behavior: smooth;
 }
 
 body::before {
@@ -88,7 +89,7 @@ body::before {
   transform: scale(110%);
 }
 
-.expenses {
+.list {
   display: flex;
   justify-content: space-evenly;
   margin: 10px;
@@ -150,4 +151,39 @@ body::before {
 .table-heading {
   color: white;
   text-align: center;
+  margin-bottom: 0.7em;
+}
+
+rect {
+  fill: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px; /* Optional: for rounded corners */
+  padding: 20px; /* Optional: for spacing inside the element */
+  margin-left: 5%;
+}
+
+.table-hover {
+  color: white;
+}
+
+.pie-chart {
+  display: flex;
+  width: 100vw;
+}
+
+.total-budget {
+  max-height: 10vh;
+  display: flex;
+  width: 100%;
+}
+
+.total-amt {
+  width: 100%;
+  padding: 10px;
+  border-radius: 2px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  font-size: large;
 }

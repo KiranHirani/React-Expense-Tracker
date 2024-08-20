@@ -3,10 +3,15 @@ import { EXPENSES_URL, INCOME_URL, INCOME, EXPENSE } from "../shared/constants";
 import { useResponseContext } from "../context/ResponseContext";
 
 const useExpenses = () => {
-  const [allExpenses, setAllExpenses] = useState([]);
-  const [income, setIncome] = useState([]);
   const [isEditMode, setEditMode] = useState(false);
-  const { incomeResponse, expenseResponse } = useResponseContext();
+  const {
+    incomeResponse,
+    expenseResponse,
+    setIncomeArray,
+    incomeArray,
+    expensesArray,
+    setExpensesArray,
+  } = useResponseContext();
 
   let editId = useRef(0);
 
@@ -14,13 +19,13 @@ const useExpenses = () => {
     (formValues, option) => {
       if (isEditMode) {
         if (option === EXPENSE) {
-          setAllExpenses((prevExpenses) =>
+          setExpensesArray((prevExpenses) =>
             prevExpenses.map((exp) =>
               exp.id === editId.current ? { ...exp, ...formValues } : exp
             )
           );
         } else {
-          setIncome((prevIncome) =>
+          setIncomeArray((prevIncome) =>
             prevIncome.map((income) =>
               income.id === editId.current
                 ? { ...income, ...formValues }
@@ -34,9 +39,9 @@ const useExpenses = () => {
       } else {
         let data = { ...formValues, id: Date.now() };
         if (option === INCOME) {
-          setIncome((prevIncome) => [...prevIncome, data]);
+          setIncomeArray((prevIncome) => [...prevIncome, data]);
         } else {
-          setAllExpenses((prevExpenses) => [...prevExpenses, data]);
+          setExpensesArray((prevExpenses) => [...prevExpenses, data]);
         }
         saveExpenseInDB(data, option);
       }
@@ -79,21 +84,21 @@ const useExpenses = () => {
     const response = await fetch(EXPENSES_URL + ".json");
     const data = await response.json();
     expenseResponse.current = data;
-    if (data) setAllExpenses(Object.values(data));
+    if (data) setExpensesArray(Object.values(data));
   };
 
   const getAllIncome = async () => {
     const response = await fetch(INCOME_URL + ".json");
     const data = await response.json();
     incomeResponse.current = data;
-    if (data) setIncome(Object.values(data));
+    if (data) setIncomeArray(Object.values(data));
   };
 
   const deleteExpense = useCallback((id, option) => {
     if (option === INCOME) {
-      setIncome((prevIncome) => prevIncome.filter((inc) => inc.id !== id));
+      setIncomeArray((prevIncome) => prevIncome.filter((inc) => inc.id !== id));
     } else {
-      setAllExpenses((prevExpenses) =>
+      setExpensesArray((prevExpenses) =>
         prevExpenses.filter((exp) => exp.id !== id)
       );
     }
@@ -127,10 +132,10 @@ const useExpenses = () => {
     startEditExpense,
     deleteExpense,
     getAllIncome,
-    income,
+    incomeArray,
     addExpense,
     getAllExpenses,
-    allExpenses,
+    expensesArray,
     setEditMode,
   };
 };
